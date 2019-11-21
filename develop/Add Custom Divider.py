@@ -6,7 +6,7 @@ be.net/dyne
 Writen by: Carlos Dordelly
 Special thanks: Pancho Contreras, Terry Williams & Roberto Gonzalez
 
-Organize your everyday workflow with a better way your projects.
+Organize your everyday objects workflow with a better way in your projects.
 Hold Shift or ALT or CTRL/CMD while execute the script to put the dividers up or down or child of the objects. (works only with dividers and group dividers)
 Version: 1.0
 Date: 04/05/2017
@@ -56,5 +56,8 @@ def add_custom(name, color):
 
 
 color_custom=c4d.Vector(1,0.545,0.094) # Layer Color
-add_custom("_custom divider_",color_custom)
+name_customd="_custom divider_" #change only the text inside of ""
+
+if __name__=='__main__':
+  add_custom(name_customd,color_custom)
 
