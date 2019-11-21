@@ -58,7 +58,7 @@ def add_divider(name, color):
 
          # Open the options dialogue to let users choose their options.
        dlg = OptionsDialog()
-       dlg.Open(c4d.DLG_TYPE_MODAL, xpos=0, ypos=0, defaultw=300, defaulth=50)
+       dlg.Open(c4d.DLG_TYPE_MODAL, defaultw=300, defaulth=50)
        if not dlg.ok:
          return
 
