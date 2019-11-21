@@ -1,3 +1,19 @@
+"""
+Pro Organizer Scripts Package
+Thanks for purchasing - for commercial and all uses.
+
+be.net/dyne
+Writen by: Carlos Dordelly
+Special thanks: Pancho Contreras, Terry Williams & Roberto Gonzalez
+
+Organize your everyday workflow with a better way your projects.
+Hold Shift or ALT or CTRL/CMD while execute the script to put the dividers up or down or child of the objects. (works only with dividers and group dividers)
+Version: 1.0
+Date: 04/05/2017
+Written and tested in Cinema 4D R18 / R17 / R16 - Maybe works in older versions.
+
+"""
+
 import c4d
  
 def all_organizer(name, color, objname):

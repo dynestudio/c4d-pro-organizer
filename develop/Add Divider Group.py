@@ -1,5 +1,20 @@
+"""
+Pro Organizer Scripts Package
+Thanks for purchasing - for commercial and all uses.
+
+be.net/dyne
+Writen by: Carlos Dordelly
+Special thanks: Pancho Contreras, Terry Williams & Roberto Gonzalez
+
+Organize your everyday workflow with a better way your projects.
+Hold Shift or ALT or CTRL/CMD while execute the script to put the dividers up or down or child of the objects. (works only with dividers and group dividers)
+Version: 1.0
+Date: 04/05/2017
+Written and tested in Cinema 4D R18 / R17 / R16 - Maybe works in older versions.
+
+"""
+
 import c4d
- 
  
 color_divider=c4d.Vector(1,1,1) # Layer Color
  
@@ -42,24 +57,30 @@ def add_divider(name, color):
        c4d.EventAdd()
        
 def insert_up():
-      ActiveDocument = doc.GetDocument()
+      ActiveDocument = c4d.documents.GetActiveDocument()
       ObjectsList = doc.GetObjects()
       FirstObject = doc.GetFirstObject()
+      if FirstObject == None: return
       ActiveObject = doc.GetActiveObject()
+      if ActiveObject == None: return
       FirstObject.InsertAfter(ActiveObject)
 
 def insert_down():
-      ActiveDocument = doc.GetDocument()
+      ActiveDocument = c4d.documents.GetActiveDocument()
       ObjectsList = doc.GetObjects()
       FirstObject = doc.GetFirstObject()
+      if FirstObject == None: return
       ActiveObject = doc.GetActiveObject()
+      if ActiveObject == None: return
       FirstObject.InsertBefore(ActiveObject)
 
 def insert_child():
-      ActiveDocument = doc.GetDocument()
+      ActiveDocument = c4d.documents.GetActiveDocument()
       ObjectsList = doc.GetObjects()
       FirstObject = doc.GetFirstObject()
+      if FirstObject == None: return
       ActiveObject = doc.GetActiveObject()
+      if ActiveObject == None: return
       FirstObject.InsertUnder(ActiveObject)
 
 def Shorcuts_Functions():
