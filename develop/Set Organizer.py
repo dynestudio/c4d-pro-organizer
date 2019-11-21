@@ -1,6 +1,6 @@
 import c4d
  
-def add_layers(name, color, objname):
+def all_organizer(name, color, objname):
 
 
        root = doc.GetLayerObjectRoot()
@@ -30,14 +30,13 @@ def add_layers(name, color, objname):
                    layer=l
                    break 
 
-
-color_divider=c4d.Vector(1,1,1)
-color_lights=c4d.Vector(0.898,0.875,0.235) # Layer Color
-color_cams=c4d.Vector(0.235,0.388,0.898) # Layer Color
-
-
-add_layers("_lights_",color_lights, "_lights_")
-add_layers("_cameras_",color_cams, "_cameras_")
+       Null = c4d.BaseObject(5140)
+       Null[c4d.ID_BASELIST_NAME] = objname
+       Null[c4d.ID_LAYER_LINK] = layer
+       Null[c4d.NULLOBJECT_DISPLAY] = 14
+       doc.InsertObject(Null)
+       
+       c4d.EventAdd()
 
 def add_divider(name, color):
 
@@ -78,5 +77,16 @@ def add_divider(name, color):
        c4d.EventAdd()
 
 
-color_divider=c4d.Vector(1,1,1) # Layer Color
+
+color_divider=c4d.Vector(1,1,1) # Layer divider
+color_lights=c4d.Vector(0.898,0.875,0.235) # Layer Lights
+color_cams=c4d.Vector(0.235,0.388,0.898) # Layer Cams
+color_geo=c4d.Vector(0.263,0.286,0.329) # Layer Geometry
+
+add_divider("_dividers_",color_divider)
+all_organizer("_cameras_",color_cams, "_cameras_")
+add_divider("_dividers_",color_divider)
+all_organizer("_lights_",color_lights, "_lights_")
+add_divider("_dividers_",color_divider)
+all_organizer("_geometry_",color_geo, "_geo_")
 add_divider("_dividers_",color_divider)

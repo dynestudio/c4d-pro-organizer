@@ -1,6 +1,6 @@
 import c4d
  
-def add_cameras(name, color):
+def add_custom(name, color):
 
 
        root = doc.GetLayerObjectRoot()
@@ -31,7 +31,7 @@ def add_cameras(name, color):
                    break 
 
        Null = c4d.BaseObject(5140)
-       Null[c4d.ID_BASELIST_NAME] = "_cameras_" #Name of null
+       Null[c4d.ID_BASELIST_NAME] = name #Name of null
        Null[c4d.ID_LAYER_LINK] = layer
        Null[c4d.NULLOBJECT_DISPLAY] = 14
        doc.InsertObject(Null)
@@ -39,6 +39,6 @@ def add_cameras(name, color):
        c4d.EventAdd()
 
 
-color_cams=c4d.Vector(0.235,0.388,0.898) # Layer Color
-add_cameras("_cameras_",color_cams)
+color_custom=c4d.Vector(1,0.545,0.094) # Layer Color
+add_custom("_custom divider_",color_custom)
 

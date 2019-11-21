@@ -1,6 +1,6 @@
 import c4d
  
-def all_layers(name, color, objname):
+def add_divider(name, color):
 
 
        root = doc.GetLayerObjectRoot()
@@ -22,7 +22,7 @@ def all_layers(name, color, objname):
            layer=LayersList[-1]
            layer.SetName(name)  
  
-           layer[c4d.ID_LAYER_COLOR] =color
+           layer[c4d.ID_LAYER_COLOR] =color 
 
        else:
            for n, l in layers:
@@ -31,7 +31,7 @@ def all_layers(name, color, objname):
                    break 
 
        Null = c4d.BaseObject(5140)
-       Null[c4d.ID_BASELIST_NAME] = objname
+       Null[c4d.ID_BASELIST_NAME] = "______________________________Group Name" #Name of null
        Null[c4d.ID_LAYER_LINK] = layer
        Null[c4d.NULLOBJECT_DISPLAY] = 14
        doc.InsertObject(Null)
@@ -39,13 +39,6 @@ def all_layers(name, color, objname):
        c4d.EventAdd()
 
 
-color_divider=c4d.Vector(1,1,1)
-color_lights=c4d.Vector(0.898,0.875,0.235) # Layer Color
-color_cams=c4d.Vector(0.235,0.388,0.898) # Layer Color
-
-
-
-all_layers("_dividers_",color_divider, "_dividers_")
-all_layers("_lights_",color_lights, "_lights_")
-all_layers("_cameras_",color_cams, "_cameras_")
+color_divider=c4d.Vector(1,1,1) # Layer Color
+add_divider("_dividers_",color_divider)
 
