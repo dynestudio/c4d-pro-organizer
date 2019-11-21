@@ -66,6 +66,12 @@ def add_ArnoldDrivers(name, color):
        null[c4d.ID_LAYER_LINK] = layer
        null[c4d.NULLOBJECT_DISPLAY] = 14
        doc.InsertObject(null)
+
+       #put the divider last in the obj manager
+       firstObj = doc.GetFirstObject()
+       lastObj = objectsList[-1]
+       firstObj.InsertAfter(lastObj)
+
        doc.AddUndo(c4d.UNDOTYPE_NEW, null)
 
        #end undo action
