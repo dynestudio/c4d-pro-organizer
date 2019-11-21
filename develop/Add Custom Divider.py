@@ -9,7 +9,7 @@ Special thanks: Pancho Contreras, Terry Williams & Roberto Gonzalez
 Organize your everyday objects workflow with a better way in your projects.
 Hold Shift or ALT or CTRL/CMD while execute the script to put the dividers up or down or child of the objects. (works only with dividers and group dividers)
 Version: 1.0
-Date: 04/05/2017
+Date: 22/05/2017
 Written and tested in Cinema 4D R18 / R17 / R16 - Maybe works in older versions.
 
 """
@@ -33,12 +33,11 @@ def add_custom(name, color):
        if not name in names:
 
 
-           c4d.CallCommand(100004738) # New Layer
-           LayersList = root.GetChildren() 
-           layer=LayersList[-1]
+           layer = c4d.documents.LayerObject() #New Layer
            layer.SetName(name)  
- 
-           layer[c4d.ID_LAYER_COLOR] =color 
+           layer[c4d.ID_LAYER_COLOR] =color
+           layer[c4d.ID_LAYER_GENERATORS]=False
+           layer.InsertUnder(root)
 
        else:
            for n, l in layers:
@@ -46,11 +45,11 @@ def add_custom(name, color):
                    layer=l
                    break 
 
-       Null = c4d.BaseObject(5140)
-       Null[c4d.ID_BASELIST_NAME] = name #Name of null
-       Null[c4d.ID_LAYER_LINK] = layer
-       Null[c4d.NULLOBJECT_DISPLAY] = 14
-       doc.InsertObject(Null)
+       null = c4d.BaseObject(c4d.Onull)
+       null[c4d.ID_BASELIST_NAME] = name #Name of null
+       null[c4d.ID_LAYER_LINK] = layer
+       null[c4d.NULLOBJECT_DISPLAY] = 14
+       doc.InsertObject(null)
        
        c4d.EventAdd()
 
