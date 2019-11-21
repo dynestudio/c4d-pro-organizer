@@ -21,10 +21,13 @@ import c4d
 
 #global ids
 color_divider=c4d.Vector(1,1,1) # layer divider
+c4d_greyvalue = 0.75294117647
+color_layer_divider=c4d.Vector(c4d_greyvalue, c4d_greyvalue, c4d_greyvalue) # layer divider space
 color_lights=c4d.Vector(0.898,0.875,0.235) # layer lights
 color_cams=c4d.Vector(0.235,0.388,0.898) # layer cams
 color_geo=c4d.Vector(0.263,0.286,0.329) # layer geometry
 name_null="___________________________________ " #name of divider
+name_layerspace = name_null[:20]
 
 def all_organizer(name, color, objname):
 
@@ -132,8 +135,56 @@ def add_divider(name, color):
        #update scene
        c4d.EventAdd()
 
+def divider_layer(name, color):
+
+       #layers ops
+       root = doc.GetLayerObjectRoot()
+       LayersList = root.GetChildren() 
+
+       names=[]    
+       layers=[]
+
+       #start undo action
+       doc.StartUndo()
+
+       for l in LayersList:
+           n=l.GetName()
+           names.append(n)
+           layers.append((n,l))
+
+       if not name in names:
+           layer = c4d.documents.LayerObject() #New Layer
+           layer.SetName(name)  
+           layer[c4d.ID_LAYER_COLOR] = color
+           layer_settings = {'solo': False, 'view': False, 'render': False, 'manager': False, 'locked': False, 'generators': False, 'deformers': False, 'expressions': False, 'animation': False}
+           layer.SetLayerData(doc, layer_settings)
+           layer.InsertUnder(root)
+
+       else:
+           for n, l in layers:
+               if n ==name:
+                   layer=l
+                   break 
+
+       doc.AddUndo(c4d.UNDOTYPE_NEW, layer)
+
+       #prevent copies in obj manager
+       #objectsListNew=[]
+       #for l in LayersList:
+       #    n=l.GetName()
+       #    if n == name:
+       #       objectsListNew.append(1)
+       #if len(objectsListNew) >= 2:
+       #     return
+
+       #end undo action
+       doc.EndUndo()
+
+       #update scene
+       c4d.EventAdd()
 
 if __name__=='__main__':
+  divider_layer(name_null[:20],color_layer_divider)
   add_divider("_dividers_",color_divider)
   all_organizer("_cameras_",color_cams, "_cameras_")
   add_divider("_dividers_",color_divider)
@@ -141,3 +192,4 @@ if __name__=='__main__':
   add_divider("_dividers_",color_divider)
   all_organizer("_geometry_",color_geo, "_geo_")
   add_divider("_dividers_",color_divider)
+  divider_layer(name_null[:19],color_layer_divider)
