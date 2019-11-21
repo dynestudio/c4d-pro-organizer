@@ -24,61 +24,61 @@ color_ArnoldDrivers=c4d.Vector(0.8,0.2,0.4) # layer Color
 
 def add_ArnoldDrivers(name, color):
 
-       #layers ops
-       root = doc.GetLayerObjectRoot()
-       layersList = root.GetChildren() 
+   #layers ops
+   root = doc.GetLayerObjectRoot()
+   layersList = root.GetChildren() 
 
-       names=[]    
-       layers=[]
-       
-       #start undo action
-       doc.StartUndo()
+   names=[]    
+   layers=[]
+   
+   #start undo action
+   doc.StartUndo()
 
-       for l in layersList:
-           n=l.GetName()
-           names.append(n)
-           layers.append((n,l))
+   for l in layersList:
+       n=l.GetName()
+       names.append(n)
+       layers.append((n,l))
 
-       if not name in names:
+   if not name in names:
 
-           c4d.CallCommand(100004738) # new Layer
-           layersList = root.GetChildren() 
-           layer=layersList[-1]
-           layer.SetName(name)  
- 
-           layer[c4d.ID_LAYER_COLOR] =color 
+       layer = c4d.documents.LayerObject() #new Layer
+       layer.SetName(name)  
+       layer[c4d.ID_LAYER_COLOR] = color
+       layer_settings = {'solo': False, 'view': False, 'render': True, 'manager': True, 'locked': False, 'generators': False, 'deformers': False, 'expressions': False, 'animation': False}
+       layer.SetLayerData(doc, layer_settings)
+       layer.InsertUnder(root)
 
-       else:
-           for n, l in layers:
-               if n ==name:
-                   layer=l
-                   break 
+   else:
+       for n, l in layers:
+           if n == name:
+               layer=l
+               break 
 
-       #prevent copies in obj manager
-       objectsList = doc.GetObjects()
-       for obj in objectsList:
-          if obj[c4d.ID_BASELIST_NAME] == name:
-            return
+   #prevent copies in obj manager
+   null = doc.SearchObject(name)
+   if not null:
+     #divider ops
+     null = c4d.BaseObject(5140)
+     null[c4d.ID_BASELIST_NAME] = name #name of null
+     null[c4d.ID_LAYER_LINK] = layer
+     null[c4d.NULLOBJECT_DISPLAY] = 14
+     doc.InsertObject(null)
+   else:
+        None
 
-       #divider ops
-       null = c4d.BaseObject(5140)
-       null[c4d.ID_BASELIST_NAME] = name #name of null
-       null[c4d.ID_LAYER_LINK] = layer
-       null[c4d.NULLOBJECT_DISPLAY] = 14
-       doc.InsertObject(null)
+   #put the divider last in the obj manager
+   objectsList = doc.GetObjects()
+   firstObj = doc.GetFirstObject()
+   lastObj = objectsList[-1]
+   firstObj.InsertAfter(lastObj)
 
-       #put the divider last in the obj manager
-       firstObj = doc.GetFirstObject()
-       lastObj = objectsList[-1]
-       firstObj.InsertAfter(lastObj)
+   doc.AddUndo(c4d.UNDOTYPE_NEW, null)
 
-       doc.AddUndo(c4d.UNDOTYPE_NEW, null)
-
-       #end undo action
-       doc.EndUndo()
-       
-       #update scene
-       c4d.EventAdd()
+   #end undo action
+   doc.EndUndo()
+   
+   #update scene
+   c4d.EventAdd()
 
 if __name__=='__main__':
   add_ArnoldDrivers("_Arnold Drivers_",color_ArnoldDrivers)

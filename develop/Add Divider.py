@@ -43,7 +43,7 @@ def add_divider(name, color):
        if not name in names:
            layer = c4d.documents.LayerObject() #new Layer
            layer.SetName(name)  
-           layer[c4d.ID_LAYER_COLOR] =color
+           layer[c4d.ID_LAYER_COLOR] = color
            layer_settings = {'solo': False, 'view': False, 'render': True, 'manager': True, 'locked': False, 'generators': False, 'deformers': False, 'expressions': False, 'animation': False}
            layer.SetLayerData(doc, layer_settings)
            layer.InsertUnder(root)

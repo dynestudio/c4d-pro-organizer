@@ -23,7 +23,7 @@ from c4d import gui
 #global ids
 color_divider=c4d.Vector(1,1,1) # layer divider
 name_null="___________________________________" #name of divider
-name_gnull="__________________________" #name of divider group
+name_gnull="_____" #name of divider group
  
 #dialog of divider group
 class OptionsDialog(gui.GeDialog):
@@ -83,7 +83,7 @@ def add_divider(name, color):
        if not name in names:
            layer = c4d.documents.LayerObject() #new Layer
            layer.SetName(name)  
-           layer[c4d.ID_LAYER_COLOR] =color
+           layer[c4d.ID_LAYER_COLOR] = color
            layer_settings = {'solo': False, 'view': False, 'render': True, 'manager': True, 'locked': False, 'generators': False, 'deformers': False, 'expressions': False, 'animation': False}
            layer.SetLayerData(doc, layer_settings)
            layer.InsertUnder(root)
