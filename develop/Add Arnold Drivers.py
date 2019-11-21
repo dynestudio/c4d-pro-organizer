@@ -18,35 +18,35 @@ Pro Organizer - Scripts Package v0.9 belongs to Dyne Tools (group of digital too
 """
 
 import c4d
-
-#global ids
-color_custom=c4d.Vector(1,0.545,0.094) # layer Color in float values
-name_customd="_custom divider_" #change only the text inside of ""
  
-def add_custom(name, color):
+#global ids
+color_ArnoldDrivers=c4d.Vector(0.8,0.2,0.4) # layer Color
+
+def add_ArnoldDrivers(name, color):
 
        #layers ops
        root = doc.GetLayerObjectRoot()
-       LayersList = root.GetChildren() 
+       layersList = root.GetChildren() 
 
        names=[]    
        layers=[]
-
+       
        #start undo action
        doc.StartUndo()
 
-       for l in LayersList:
+       for l in layersList:
            n=l.GetName()
            names.append(n)
            layers.append((n,l))
 
        if not name in names:
 
-           layer = c4d.documents.LayerObject() #new Layer
+           c4d.CallCommand(100004738) # new Layer
+           layersList = root.GetChildren() 
+           layer=layersList[-1]
            layer.SetName(name)  
-           layer[c4d.ID_LAYER_COLOR] =color
-           layer[c4d.ID_LAYER_GENERATORS]=False
-           layer.InsertUnder(root)
+ 
+           layer[c4d.ID_LAYER_COLOR] =color 
 
        else:
            for n, l in layers:
@@ -61,7 +61,7 @@ def add_custom(name, color):
             return
 
        #divider ops
-       null = c4d.BaseObject(c4d.Onull)
+       null = c4d.BaseObject(5140)
        null[c4d.ID_BASELIST_NAME] = name #name of null
        null[c4d.ID_LAYER_LINK] = layer
        null[c4d.NULLOBJECT_DISPLAY] = 14
@@ -75,4 +75,4 @@ def add_custom(name, color):
        c4d.EventAdd()
 
 if __name__=='__main__':
-  add_custom(name_customd,color_custom)
+  add_ArnoldDrivers("_Arnold Drivers_",color_ArnoldDrivers)
