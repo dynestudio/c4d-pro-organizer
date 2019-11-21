@@ -83,7 +83,7 @@ def add_divider(name, color):
                    break 
 
        null = c4d.BaseObject(c4d.Onull)
-       null[c4d.ID_BASELIST_NAME] = "_______________________________________________________" #Name of null
+       null[c4d.ID_BASELIST_NAME] = "___________________________________________________" #Name of null
        null[c4d.ID_LAYER_LINK] = layer
        null[c4d.NULLOBJECT_DISPLAY] = 14
        doc.InsertObject(null)
