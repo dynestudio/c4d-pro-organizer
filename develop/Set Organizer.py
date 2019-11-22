@@ -10,8 +10,7 @@ Special thanks: Pancho Contreras, Terry Williams & Roberto Gonzalez
 Improve your scene organization and your projects workflow with a better way.
 Hold Shift or ALT or CTRL/CMD while execute the script to put the dividers up or down or child of the objects. (works only with dividers and group dividers)
 Version: 1.0
-Date: 19/08/2017
-Written and tested in Cinema 4D R18 / R17 / R16 - Maybe works in older versions.
+Written and tested in Cinema 4D R21 / R20 / R19 - Maybe works in older versions.
 
 Pro Organizer - Scripts Package v0.9 belongs to Dyne Tools (group of digital tools from dyne).
 
