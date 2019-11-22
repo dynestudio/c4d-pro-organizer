@@ -1,7 +1,7 @@
 """
-Pro Organizer - Scripts Package v0.9
+Pro Organizer - Scripts Package v0.9.6
 Thanks for download - for commercial and personal uses.
-The Pro Organizer v1.0 granted shall not be copied, distributed, or-sold, offered for resale, transferred in whole or in part except that you may make one copy for archive purposes only.
+The Pro Organizer granted shall not be copied, distributed, or-sold, offered for resale, transferred in whole or in part except that you may make one copy for archive purposes only.
 
 be.net/dyne
 Writen by: Carlos Dordelly
