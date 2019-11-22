@@ -1,5 +1,5 @@
 """
-Pro Organizer - Scripts Package v0.9
+Pro Organizer - Scripts Package v0.9.6
 Thanks for download - for commercial and personal uses.
 The Pro Organizer v1.0 granted shall not be copied, distributed, or-sold, offered for resale, transferred in whole or in part except that you may make one copy for archive purposes only.
 
@@ -9,8 +9,6 @@ Special thanks: Pancho Contreras, Terry Williams & Roberto Gonzalez
 
 Improve your scene organization and your projects workflow with a better way.
 Hold Shift or ALT or CTRL/CMD while execute the script to put the dividers up or down or child of the objects. (works only with dividers and group dividers)
-Version: 1.0
-Date: 19/08/2017
 Written and tested in Cinema 4D R18 / R17 / R16 - Maybe works in older versions.
 
 """
