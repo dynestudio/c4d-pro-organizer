@@ -13,8 +13,6 @@ Version: 1.0
 Date: 19/08/2017
 Written and tested in Cinema 4D R18 / R17 / R16 - Maybe works in older versions.
 
-Pro Organizer - Scripts Package v0.9 belongs to Dyne Tools (group of digital tools from dyne).
-
 """
 
 import c4d

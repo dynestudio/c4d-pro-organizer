@@ -13,8 +13,6 @@ Version: 1.0
 Date: 19/08/2017
 Written and tested in Cinema 4D R18 / R17 / R16 - Maybe works in older versions.
 
-Pro Organizer - Scripts Package v0.9 belongs to Dyne Tools (group of digital tools from dyne).
-
 """
 
 import c4d
@@ -22,8 +20,8 @@ from c4d import gui
  
 #global ids
 color_divider=c4d.Vector(1,1,1) # layer divider
-name_null="___________________________________" #name of divider
-name_gnull="_____" #name of divider group
+name_null   = "_____________________" #name of divider
+name_gnull  = "____________"          #name of divider group
  
 #dialog of divider group
 class OptionsDialog(gui.GeDialog):
