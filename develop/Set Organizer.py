@@ -24,20 +24,19 @@ c4d_greyvalue       = 0.75294117647
 color_layer_divider = c4d.Vector(c4d_greyvalue, c4d_greyvalue, c4d_greyvalue) # layer divider space
 
 # R21 elements
-color_lights_21     = c4d.Vector(0,0,0) # layer lights
-color_cams_21       = c4d.Vector(0,0,0) # layer cams
-color_geo_21        = c4d.Vector(0,0,0) # layer geometries
+color_lights_21     = c4d.Vector(0.949,0.850,0.376) # layer lights
+color_cams_21       = c4d.Vector(0.4,0.541,1)       # layer cams
+color_geo_21        = c4d.Vector(0.435,0.439,0.458) # layer geometries
 
-icon_lights         = "170141"
-icon_cams          = "5136" 
-icon_geo            = "1052837"
+icon_lights         = "170141"  # star icon
+icon_cams           = "5136"    # clacket icon
+icon_geo            = "1052837" # folder icon
 
 # older versions colors
 color_lights        = c4d.Vector(0.898,0.875,0.235) # layer lights
 color_cams          = c4d.Vector(0.235,0.388,0.898) # layer cams
 color_geo           = c4d.Vector(0.263,0.286,0.329) # layer geometries
-name_null           = "_____________________" # name of divider
-name_layerspace     = name_null[:20]
+name_null           = "______________________" # name of divider
 
 # cinema 4D version
 def get_c4d_ver():
@@ -47,6 +46,14 @@ def get_c4d_ver():
     return C4D_ver
 
 C4D_ver = get_c4d_ver()
+
+# colors definitions based on C4D version
+if C4D_ver >= 21:
+    color_lights = color_lights_21
+    color_cams   = color_cams_21
+    color_geo    = color_geo_21
+else:
+    None
 
 def all_organizer(name, color, objname, icon):
        #layers ops
@@ -191,15 +198,6 @@ def divider_layer(name, color):
                    break 
 
        doc.AddUndo(c4d.UNDOTYPE_NEW, layer)
-
-       #prevent copies in obj manager
-       #objectsListNew=[]
-       #for l in LayersList:
-       #    n=l.GetName()
-       #    if n == name:
-       #       objectsListNew.append(1)
-       #if len(objectsListNew) >= 2:
-       #     return
 
        #end undo action
        doc.EndUndo()
