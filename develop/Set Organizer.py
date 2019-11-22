@@ -18,18 +18,44 @@ Pro Organizer - Scripts Package v0.9 belongs to Dyne Tools (group of digital too
 
 import c4d
 
-#global ids
-color_divider=c4d.Vector(1,1,1) # layer divider
-c4d_greyvalue = 0.75294117647
-color_layer_divider=c4d.Vector(c4d_greyvalue, c4d_greyvalue, c4d_greyvalue) # layer divider space
-color_lights=c4d.Vector(0.898,0.875,0.235) # layer lights
-color_cams=c4d.Vector(0.235,0.388,0.898) # layer cams
-color_geo=c4d.Vector(0.263,0.286,0.329) # layer geometry
-name_null="___________________________________ " #name of divider
-name_layerspace = name_null[:20]
+# global ids
+color_divider       = c4d.Vector(1,1,1) # layer divider
+c4d_greyvalue       = 0.75294117647
+color_layer_divider = c4d.Vector(c4d_greyvalue, c4d_greyvalue, c4d_greyvalue) # layer divider space
 
-def all_organizer(name, color, objname):
+# R21 elements
+color_lights_21     = c4d.Vector(0.949,0.850,0.376) # layer lights
+color_cams_21       = c4d.Vector(0.4,0.541,1)       # layer cams
+color_geo_21        = c4d.Vector(0.435,0.439,0.458) # layer geometries
 
+icon_lights         = "170141"  # star icon
+icon_cams           = "5136"    # clacket icon
+icon_geo            = "1052837" # folder icon
+
+# older versions colors
+color_lights        = c4d.Vector(0.898,0.875,0.235) # layer lights
+color_cams          = c4d.Vector(0.235,0.388,0.898) # layer cams
+color_geo           = c4d.Vector(0.263,0.286,0.329) # layer geometries
+name_null           = "______________________" # name of divider
+
+# cinema 4D version
+def get_c4d_ver():
+    C4D_ver         = str(c4d.GetC4DVersion())
+    C4D_ver         = int(C4D_ver[:2])
+
+    return C4D_ver
+
+C4D_ver = get_c4d_ver()
+
+# colors definitions based on C4D version
+if C4D_ver >= 21:
+    color_lights = color_lights_21
+    color_cams   = color_cams_21
+    color_geo    = color_geo_21
+else:
+    None
+
+def all_organizer(name, color, objname, icon):
        #layers ops
        root = doc.GetLayerObjectRoot()
        LayersList = root.GetChildren() 
@@ -70,7 +96,15 @@ def all_organizer(name, color, objname):
        null[c4d.NULLOBJECT_DISPLAY] = 14
        null[c4d.ID_BASEOBJECT_USECOLOR] = 2
        null[c4d.ID_BASEOBJECT_COLOR] = color
-       null[c4d.NULLOBJECT_ICONCOL] = True
+
+       #support for older versions than R21
+       if C4D_ver <= 20:
+           null[c4d.NULLOBJECT_ICONCOL] = True
+       else:
+           null[c4d.ID_BASELIST_ICON_COLORIZE_MODE] = 2 # C4D bug fix pending
+           null[c4d.ID_BASELIST_ICON_COLOR] = color
+           null[c4d.ID_BASELIST_ICON_FILE] = icon
+
        doc.InsertObject(null)
        doc.AddUndo(c4d.UNDOTYPE_NEW, null)
 
@@ -81,7 +115,6 @@ def all_organizer(name, color, objname):
        c4d.EventAdd()
 
 def add_divider(name, color):
-
        #layers ops
        root = doc.GetLayerObjectRoot()
        LayersList = root.GetChildren() 
@@ -135,7 +168,6 @@ def add_divider(name, color):
        c4d.EventAdd()
 
 def divider_layer(name, color):
-
        #layers ops
        root = doc.GetLayerObjectRoot()
        LayersList = root.GetChildren() 
@@ -167,15 +199,6 @@ def divider_layer(name, color):
 
        doc.AddUndo(c4d.UNDOTYPE_NEW, layer)
 
-       #prevent copies in obj manager
-       #objectsListNew=[]
-       #for l in LayersList:
-       #    n=l.GetName()
-       #    if n == name:
-       #       objectsListNew.append(1)
-       #if len(objectsListNew) >= 2:
-       #     return
-
        #end undo action
        doc.EndUndo()
 
@@ -185,10 +208,10 @@ def divider_layer(name, color):
 if __name__=='__main__':
   divider_layer(name_null[:20],color_layer_divider)
   add_divider("_dividers_",color_divider)
-  all_organizer("_cameras_",color_cams, "_cameras_")
+  all_organizer("_cameras_",color_cams, "_cameras_", icon_cams)
   add_divider("_dividers_",color_divider)
-  all_organizer("_lights_",color_lights, "_lights_")
+  all_organizer("_lights_",color_lights, "_lights_", icon_lights)
   add_divider("_dividers_",color_divider)
-  all_organizer("_geometry_",color_geo, "_geo_")
+  all_organizer("_geometry_",color_geo, "_geo_", icon_geo)
   add_divider("_dividers_",color_divider)
   divider_layer(name_null[:19],color_layer_divider)
