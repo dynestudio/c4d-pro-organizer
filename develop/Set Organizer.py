@@ -23,10 +23,14 @@ color_divider       = c4d.Vector(1,1,1) # layer divider
 c4d_greyvalue       = 0.75294117647
 color_layer_divider = c4d.Vector(c4d_greyvalue, c4d_greyvalue, c4d_greyvalue) # layer divider space
 
-# R21 colors
+# R21 elements
 color_lights_21     = c4d.Vector(0,0,0) # layer lights
 color_cams_21       = c4d.Vector(0,0,0) # layer cams
 color_geo_21        = c4d.Vector(0,0,0) # layer geometries
+
+icon_lights         = "170141"
+icon_cams          = "5136" 
+icon_geo            = "1052837"
 
 # older versions colors
 color_lights        = c4d.Vector(0.898,0.875,0.235) # layer lights
@@ -42,7 +46,9 @@ def get_c4d_ver():
 
     return C4D_ver
 
-def all_organizer(name, color, objname):
+C4D_ver = get_c4d_ver()
+
+def all_organizer(name, color, objname, icon):
        #layers ops
        root = doc.GetLayerObjectRoot()
        LayersList = root.GetChildren() 
@@ -84,14 +90,13 @@ def all_organizer(name, color, objname):
        null[c4d.ID_BASEOBJECT_USECOLOR] = 2
        null[c4d.ID_BASEOBJECT_COLOR] = color
 
-       C4D_ver = get_c4d_ver()
        #support for older versions than R21
        if C4D_ver <= 20:
            null[c4d.NULLOBJECT_ICONCOL] = True
        else:
-           null[c4d.ID_BASELIST_ICON_COLORIZE_MODE] = 2
-           null[c4d.ID_BASELIST_ICON_FILE] = "5136"
+           null[c4d.ID_BASELIST_ICON_COLORIZE_MODE] = 2 # C4D bug fix pending
            null[c4d.ID_BASELIST_ICON_COLOR] = color
+           null[c4d.ID_BASELIST_ICON_FILE] = icon
 
        doc.InsertObject(null)
        doc.AddUndo(c4d.UNDOTYPE_NEW, null)
@@ -205,10 +210,10 @@ def divider_layer(name, color):
 if __name__=='__main__':
   divider_layer(name_null[:20],color_layer_divider)
   add_divider("_dividers_",color_divider)
-  all_organizer("_cameras_",color_cams, "_cameras_")
+  all_organizer("_cameras_",color_cams, "_cameras_", icon_cams)
   add_divider("_dividers_",color_divider)
-  all_organizer("_lights_",color_lights, "_lights_")
+  all_organizer("_lights_",color_lights, "_lights_", icon_lights)
   add_divider("_dividers_",color_divider)
-  all_organizer("_geometry_",color_geo, "_geo_")
+  all_organizer("_geometry_",color_geo, "_geo_", icon_geo)
   add_divider("_dividers_",color_divider)
   divider_layer(name_null[:19],color_layer_divider)
