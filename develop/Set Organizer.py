@@ -18,15 +18,22 @@ Pro Organizer - Scripts Package v0.9 belongs to Dyne Tools (group of digital too
 
 import c4d
 
-#global ids
-color_divider=c4d.Vector(1,1,1) # layer divider
-c4d_greyvalue = 0.75294117647
-color_layer_divider=c4d.Vector(c4d_greyvalue, c4d_greyvalue, c4d_greyvalue) # layer divider space
-color_lights=c4d.Vector(0.898,0.875,0.235) # layer lights
-color_cams=c4d.Vector(0.235,0.388,0.898) # layer cams
-color_geo=c4d.Vector(0.263,0.286,0.329) # layer geometry
-name_null="___________________________________ " #name of divider
-name_layerspace = name_null[:20]
+# global ids
+color_divider       = c4d.Vector(1,1,1) # layer divider
+c4d_greyvalue       = 0.75294117647
+color_layer_divider = c4d.Vector(c4d_greyvalue, c4d_greyvalue, c4d_greyvalue) # layer divider space
+
+# R21 colors
+color_lights_21     = c4d.Vector(0,0,0) # layer lights
+color_cams_21       = c4d.Vector(0,0,0) # layer cams
+color_geo_21        = c4d.Vector(0,0,0) # layer geometries
+
+# older versions colors
+color_lights        = c4d.Vector(0.898,0.875,0.235) # layer lights
+color_cams          = c4d.Vector(0.235,0.388,0.898) # layer cams
+color_geo           = c4d.Vector(0.263,0.286,0.329) # layer geometries
+name_null           = "_____________________" # name of divider
+name_layerspace     = name_null[:20]
 
 # cinema 4D version
 def get_c4d_ver():
@@ -83,6 +90,8 @@ def all_organizer(name, color, objname):
            null[c4d.NULLOBJECT_ICONCOL] = True
        else:
            null[c4d.ID_BASELIST_ICON_COLORIZE_MODE] = 2
+           null[c4d.ID_BASELIST_ICON_FILE] = "5136"
+           null[c4d.ID_BASELIST_ICON_COLOR] = color
 
        doc.InsertObject(null)
        doc.AddUndo(c4d.UNDOTYPE_NEW, null)
