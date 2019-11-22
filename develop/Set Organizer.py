@@ -12,7 +12,7 @@ Hold Shift or ALT or CTRL/CMD while execute the script to put the dividers up or
 Version: 1.0
 Written and tested in Cinema 4D R21 / R20 / R19 - Maybe works in older versions.
 
-Pro Organizer - Scripts Package v0.9 belongs to Dyne Tools (group of digital tools from dyne).
+Pro Organizer - Scripts Package belongs to Dyne Tools (group of digital tools from dyne).
 
 """
 
