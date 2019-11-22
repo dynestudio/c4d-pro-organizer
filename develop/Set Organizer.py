@@ -28,8 +28,14 @@ color_geo=c4d.Vector(0.263,0.286,0.329) # layer geometry
 name_null="___________________________________ " #name of divider
 name_layerspace = name_null[:20]
 
-def all_organizer(name, color, objname):
+# cinema 4D version
+def get_c4d_ver():
+    C4D_ver         = str(c4d.GetC4DVersion())
+    C4D_ver         = int(C4D_ver[:2])
 
+    return C4D_ver
+
+def all_organizer(name, color, objname):
        #layers ops
        root = doc.GetLayerObjectRoot()
        LayersList = root.GetChildren() 
@@ -70,7 +76,14 @@ def all_organizer(name, color, objname):
        null[c4d.NULLOBJECT_DISPLAY] = 14
        null[c4d.ID_BASEOBJECT_USECOLOR] = 2
        null[c4d.ID_BASEOBJECT_COLOR] = color
-       null[c4d.NULLOBJECT_ICONCOL] = True
+
+       C4D_ver = get_c4d_ver()
+       #support for older versions than R21
+       if C4D_ver <= 20:
+           null[c4d.NULLOBJECT_ICONCOL] = True
+       else:
+           null[c4d.ID_BASELIST_ICON_COLORIZE_MODE] = 2
+
        doc.InsertObject(null)
        doc.AddUndo(c4d.UNDOTYPE_NEW, null)
 
@@ -81,7 +94,6 @@ def all_organizer(name, color, objname):
        c4d.EventAdd()
 
 def add_divider(name, color):
-
        #layers ops
        root = doc.GetLayerObjectRoot()
        LayersList = root.GetChildren() 
@@ -135,7 +147,6 @@ def add_divider(name, color):
        c4d.EventAdd()
 
 def divider_layer(name, color):
-
        #layers ops
        root = doc.GetLayerObjectRoot()
        LayersList = root.GetChildren() 
